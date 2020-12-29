@@ -1,28 +1,10 @@
 import React from "react";
-import { Text, View, Button, StyleSheet } from "react-native";
+import LongCardList from "../../../components/LongCardList";
 
-const ItemList = ({ navigation, route }) => (
-  <View style={styles.container}>
-    <Text>Header자리</Text>
-    <Text>ItemList</Text>
-    <Button
-      title="go to ItemDetail"
-      onPress={() =>
-        navigation
-          ? navigation.push("ItemDetail")
-          : route.navigation.push("ItemDetail")
-      }
-    />
-  </View>
-);
+const ItemList = ({ navigation }) => {
+  const goItemDetail = () => navigation.push("ItemDetail");
+
+  return <LongCardList goItemDetail={goItemDetail} />;
+};
 
 export default ItemList;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFF",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

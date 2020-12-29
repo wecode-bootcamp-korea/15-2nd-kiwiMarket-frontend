@@ -1,8 +1,9 @@
 import React from "react";
-import { Text, View, Button, StyleSheet } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 
-const PostItem = ({ navigation, route }) => {
+const PostItem = ({ route }) => {
   const { type } = route.params;
+
   return (
     <View style={styles.container}>
       <Text>{`PostItem: ${type}`}</Text>
