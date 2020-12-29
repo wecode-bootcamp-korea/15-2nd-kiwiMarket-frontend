@@ -1,13 +1,9 @@
 import React from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import ItemList from "../ItemList";
-import { HomeHeader } from "../../components/Headers";
+import ItemList from "../../commons/itemList/ItemList";
+import { HomeHeader } from "../../../components/Headers";
 
 const Home = ({ navigation }) => {
-  const dispatch = useDispatch();
-  const counter = useSelector((state) => state.counter);
-
   return (
     <>
       <HomeHeader></HomeHeader>

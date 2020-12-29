@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, Text, View, Button, Dimensions } from "react-native";
 import { TabView, SceneMap } from "react-native-tab-view";
-import TownInfo from "../components/TownInfo";
-import Neighbor from "../components/Neighbor";
-import UsedTrading from "../components/UsedTrading";
+import TownInfo from "../../../components/TownInfo";
+import Neighbor from "../../../components/Neighbor";
+import UsedTrading from "../../../components/UsedTrading";
 
 const initialLayout = { width: Dimensions.get("window").width };
 

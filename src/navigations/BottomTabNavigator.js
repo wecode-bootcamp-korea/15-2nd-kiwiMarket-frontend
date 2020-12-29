@@ -1,10 +1,10 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeNavigator from "./HomeNavigator";
-import Community from "../screens/Community/Community";
-import Nearby from "../screens/Nearby/Nearby";
-import Chat from "../screens/Chat/Chat";
-import MyPage from "../screens/MyPage/MyPage";
+import Community from "../screens/tabs/community/Community";
+import Nearby from "../screens/tabs/nearby/Nearby";
+import Chat from "../screens/tabs/chat/Chat";
+import MyPage from "../screens/tabs/myPage/MyPage";
 
 const Tabs = createBottomTabNavigator();
 

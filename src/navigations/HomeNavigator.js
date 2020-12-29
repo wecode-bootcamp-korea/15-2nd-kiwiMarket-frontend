@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Home from "../screens/Home/Home";
-import InterestedCategory from "../screens/InterestedCategory";
+import Home from "../screens/tabs/home/Home";
+import InterestedCategory from "../screens/commons/interestedCategory/InterestedCategory";
 
 const Stack = createStackNavigator();
 

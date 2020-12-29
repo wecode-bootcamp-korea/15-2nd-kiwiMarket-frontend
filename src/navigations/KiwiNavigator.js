@@ -1,13 +1,13 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import BottomTabNavigator from "./BottomTabNavigator";
-import ItemDetail from "../screens/ItemDetail";
-import InterestedCategory from "../screens/InterestedCategory";
-import HomeSearch from "../screens/HomeSearch";
-import SetMyTown from "../screens/SetMyTown";
-import SearchMyLocation from "../screens/SearchMyLocation";
-import ItemList from "../screens/ItemList";
-import PostItem from "../screens/PostItem";
+import ItemDetail from "../screens/commons/itemDetail/ItemDetail";
+import InterestedCategory from "../screens/commons/interestedCategory/InterestedCategory";
+import HomeSearch from "../screens/commons/homeSearch/HomeSearch";
+import SetMyTown from "../screens/commons/setMyTown/SetMyTown";
+import SearchMyLocation from "../screens/commons/searchMyLocation/SearchMyLocation";
+import ItemList from "../screens/commons/itemList/ItemList";
+import PostItem from "../screens/commons/postItem/PostItem";
 
 const Stack = createStackNavigator();
 
