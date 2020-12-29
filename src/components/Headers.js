@@ -20,11 +20,13 @@ export const HomeHeader = () => {
 
 const HeaderContainer = styled.View`
   height: 80px;
-  padding: 48px 16px 8px;
+  padding: ${({ theme: { paddings } }) =>
+    `${paddings.headerTop} ${paddings.base} ${paddings.small}`};
+
   flex-direction: row;
   justify-content: space-between;
   background-color: #fff;
-  border: 1px solid #dadada;
+  border: 1px solid ${({ theme }) => theme.colors.gray};
 `;
 
 const HeaderText = styled.Text`
