@@ -1,46 +1,25 @@
 import React from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
-import ItemList from "../../commons/itemList/ItemList";
+import { StyleSheet, View } from "react-native";
+import LongCardList from "../../../components/LongCardList";
 import { HomeHeader } from "../../../components/Headers";
+import BottomModalButton from "../../../components/BottomModalButton";
 
 const Home = ({ navigation }) => {
+  const goItemDetail = () => navigation.push("ItemDetail");
+  const goScreen = (page) => navigation.push(page);
+
+  const goPostItem = (type) => {
+    navigation.push("PostItem", {
+      type: type,
+    });
+  };
+
   return (
-    <>
-      <HomeHeader></HomeHeader>
-      <View style={styles.container}>
-        <Button
-          title="go to SetMyTown"
-          onPress={() => {
-            navigation.push("SetMyTown");
-          }}
-        />
-        <Button
-          title="go to InterestedCategory"
-          onPress={() => navigation.push("InterestedCategory")}
-        />
-        <Button
-          title="go to HomeSearch"
-          onPress={() => navigation.push("HomeSearch")}
-        />
-      </View>
-      <ItemList route={{ navigation }} />
-      <Button
-        title="go to PostItem, type: Nearby"
-        onPress={() =>
-          navigation.push("PostItem", {
-            type: "Nearby",
-          })
-        }
-      />
-      <Button
-        title="go to PostItem, type: UsedTrading"
-        onPress={() =>
-          navigation.push("PostItem", {
-            type: "UsedTrading",
-          })
-        }
-      />
-    </>
+    <View style={styles.container}>
+      <HomeHeader goScreen={goScreen} />
+      <LongCardList goItemDetail={goItemDetail} />
+      <BottomModalButton goPostItem={goPostItem} />
+    </View>
   );
 };
 
@@ -50,7 +29,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });

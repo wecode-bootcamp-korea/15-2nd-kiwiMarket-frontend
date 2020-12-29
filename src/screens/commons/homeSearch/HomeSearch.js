@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, Dimensions } from "react-native";
+import { Text, Dimensions } from "react-native";
 import { TabView, SceneMap } from "react-native-tab-view";
 import TownInfo from "../../../components/TownInfo";
 import Neighbor from "../../../components/Neighbor";
@@ -13,15 +13,15 @@ const HomeSearch = ({ navigation }) => {
     {
       key: "first",
       title: "중고거래",
-      goItemDetail() {
-        navigation.push("ItemDetail");
-      },
       goItemList() {
         navigation.push("ItemList");
       },
+      goItemDetail() {
+        navigation.push("ItemDetail");
+      },
     },
-    { key: "second", title: "동네정보", navigation },
-    { key: "third", title: "사람", navigation },
+    { key: "second", title: "동네정보" },
+    { key: "third", title: "사람" },
   ]);
 
   const renderScene = SceneMap({
@@ -48,9 +48,3 @@ const HomeSearch = ({ navigation }) => {
 };
 
 export default HomeSearch;
-
-const styles = StyleSheet.create({
-  scene: {
-    flex: 1,
-  },
-});

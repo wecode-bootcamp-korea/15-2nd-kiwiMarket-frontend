@@ -1,14 +1,38 @@
 import styled from "styled-components/native";
 import React from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
-import { Ionicons } from "react-native-vector-icons";
+import { Ionicons, Fontisto } from "react-native-vector-icons";
 
-export const HomeHeader = () => {
+export const HomeHeader = ({ goScreen }) => {
   return (
-    <HeaderContainer>
-      <HeaderText>홈 헤더</HeaderText>
-      <Text>아이콘들</Text>
-    </HeaderContainer>
+    <HomeHeaderContainer>
+      <HeaderLeftButton
+        onPress={() => {
+          goScreen("SetMyTown");
+        }}
+      >
+        홈 헤더
+      </HeaderLeftButton>
+      <HeaderIcons>
+        <Fontisto
+          name="search"
+          size={18}
+          color="black"
+          onPress={() => {
+            goScreen("HomeSearch");
+          }}
+        />
+        <Fontisto
+          name="justify"
+          size={18}
+          color="black"
+          onPress={() => {
+            goScreen("InterestedCategory");
+          }}
+        />
+        <Fontisto name="bell" size={18} color="black" />
+      </HeaderIcons>
+    </HomeHeaderContainer>
   );
 };
 
@@ -61,6 +85,17 @@ const Icons = styled.View`
   width: 60px;
 `;
 
-const HeaderText = styled.Text`
+const HomeHeaderContainer = styled(HeaderContainer)`
+  top: 0;
+  z-index: 1;
+`;
+
+const HeaderLeftButton = styled.Text`
   font-size: 18px;
+`;
+
+const HeaderIcons = styled.View`
+  width: 80px;
+  flex-direction: row;
+  justify-content: space-between;
 `;
