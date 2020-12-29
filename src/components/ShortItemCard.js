@@ -22,12 +22,12 @@ export default ShortItemCard;
 const ShortCard = styled.Pressable`
   display: flex;
   flex-direction: column;
-  width: ${IMAGE_SIZE.shortCardWidth};
+  width: ${IMAGE_SIZE.shortCardWidth}px;
 `;
 
 const ShortCardImage = styled.Image`
-  width: ${IMAGE_SIZE.shortCardWidth};
-  height: ${IMAGE_SIZE.shortCardHeight};
+  width: ${IMAGE_SIZE.shortCardWidth}px;
+  height: ${IMAGE_SIZE.shortCardHeight}px;
   border-radius: 6px;
 `;
 

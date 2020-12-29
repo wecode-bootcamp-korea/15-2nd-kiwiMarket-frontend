@@ -12,7 +12,7 @@ export const flexRowMarginXView = css`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: ${windowWidth - 32};
+  width: ${windowWidth - 32}px;
   padding: 16px 0;
   margin-left: 16px;
   border: 1px solid transparent;

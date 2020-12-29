@@ -75,7 +75,7 @@ const CommentButton = styled.Pressable`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${FOOTER_BUTTON};
+  width: ${FOOTER_BUTTON}px;
   height: 40px;
   background-color: ${({ theme }) => theme.colors.kiwi};
   border-radius: 4px;
