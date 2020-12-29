@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { Text as Text, View, Dimensions } from "react-native";
+import { Dimensions } from "react-native";
 import { EvilIcons } from "react-native-vector-icons";
 
 const windowHeight = Dimensions.get("window").height;

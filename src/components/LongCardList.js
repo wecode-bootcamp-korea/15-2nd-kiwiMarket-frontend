@@ -2,20 +2,24 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components/native";
 import LongItemCard from "./LongItemCard";
 import { productList } from "../data/productList";
+import { POSTITEM_API } from "../config";
 
 const LongCardList = ({ goItemDetail }) => {
-  //   const [data, setData] = useState([]);
-  //   useEffect(() => {
-  //     fetch("https://jsonplaceholder.typicode.com/users")
-  //       .then((response) => response.json())
-  //       .then((result) => setData(result));
-  //   }, []);
-  //   data.length > 0 && console.log(data);
-  // API 통신 후 사용 예정
+  const [data, setData] = useState([...productList]);
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
+    fetch(`${POSTITEM_API}/product/1769`)
+      .then((response) => response.json())
+      .then((result) => setData(result.productList));
+  };
+
   return (
     <ItemListContainer
-      data={productList}
-      keyExtractor={(item) => item.itemId}
+      data={data}
+      keyExtractor={(item) => `${item.itemId}`}
       renderItem={({ item }) => (
         <LongItemCard goItemDetail={goItemDetail} item={item} />
       )}
