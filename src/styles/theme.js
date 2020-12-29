@@ -1,6 +1,7 @@
 const colors = {
   kiwi: "#A0C95E",
   gray: "#dadada",
+  smallTextGray: "#777777",
 };
 
 const paddings = {

@@ -10,7 +10,16 @@ const initialLayout = { width: Dimensions.get("window").width };
 const HomeSearch = ({ navigation }) => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: "first", title: "중고거래", navigation },
+    {
+      key: "first",
+      title: "중고거래",
+      goItemDetail() {
+        navigation.push("ItemDetail");
+      },
+      goItemList() {
+        navigation.push("ItemList");
+      },
+    },
     { key: "second", title: "동네정보", navigation },
     { key: "third", title: "사람", navigation },
   ]);
@@ -20,6 +29,10 @@ const HomeSearch = ({ navigation }) => {
     second: TownInfo,
     third: Neighbor,
   });
+
+  const goItemDetail = () => {
+    navigation.push("ItemDetail");
+  };
 
   return (
     <>

@@ -1,0 +1,79 @@
+{
+  "itemDetailData": {
+    "itemId": 1,
+    "sellerData": {
+      "profile": "imgUrl",
+      "nickname": "판매자 닉네임",
+      "townName": "대연동",
+      "mannerTemperature": 39.7
+    },
+    "contentData": {
+      "title": "고오급 시계",
+      "category": "남성패션/잡화",
+      "postedTime": "2020-12-25",
+      "content": "상태 좋아요~ 상태 좋아요~ 상태 좋아요~ 상태 좋아요~",
+      "wishCount": 2,
+      "hits": 42
+    },
+    "commentData": {
+      "commentCount": 2,
+      "profileImgUrl": "imgUrl",
+      "nickname": "댓글 작성자 닉네임",
+      "townName": "정릉제 2동",
+      "postedTime": "2020-12-12",
+      "comment": "예약하고 싶어요"
+    },
+    "sellerItemsData": [
+      {
+        "itemId": 19,
+        "title": "최고급 시계1",
+        "price": 730000,
+        "imgUrl": "imgUrl"
+      },
+      {
+        "itemId": 31,
+        "title": "최고급 시계2",
+        "price": 730000,
+        "imgUrl": "imgUrl"
+      },
+      {
+        "itemId": 12,
+        "title": "최고급 시계3",
+        "price": 730000,
+        "imgUrl": "imgUrl"
+      },
+      {
+        "itemId": 3,
+        "title": "최고급 시계4",
+        "price": 730000,
+        "imgUrl": "imgUrl"
+      }
+    ],
+    "relatedProduct": [
+      {
+        "itemId": 2,
+        "title": "최고급 시계1",
+        "price": 730000,
+        "imgUrl": "imgUrl"
+      },
+      {
+        "itemId": 4,
+        "title": "최고급 시계2",
+        "price": 730000,
+        "imgUrl": "imgUrl"
+      },
+      {
+        "itemId": 5,
+        "title": "최고급 시계3",
+        "price": 730000,
+        "imgUrl": "imgUrl"
+      },
+      {
+        "itemId": 6,
+        "title": "최고급 시계4",
+        "price": 730000,
+        "imgUrl": "imgUrl"
+      }
+    ]
+  }
+}

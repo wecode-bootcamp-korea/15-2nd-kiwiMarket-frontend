@@ -6,8 +6,7 @@
     "orientation": "portrait",
     "icon": "",
     "splash": {
-      "image": "",
-      "resizeMode": "contain",
+      "image": "./src/assets/smallKiwi.png",
       "backgroundColor": "#ffffff"
     },
     "updates": {
