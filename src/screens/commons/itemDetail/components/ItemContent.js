@@ -4,18 +4,16 @@ import styled from "styled-components/native";
 import { windowWidth } from "../../../../constants/Layout";
 import { flexRowMarginXView } from "../../../../styles/mixin";
 
-const ItemContent = ({ params }) => (
-  <BottomBorderViewCol>
-    <ContentTitle>고오급 시계</ContentTitle>
-    <ContentSmall>남성패션/잡화 · 어제</ContentSmall>
-    <Content>
-      {
-        "상태 좋아요 상태 좋아요 상태 좋아요 상태 좋아요 상태 좋아요 상태 좋아요"
-      }
-    </Content>
-    <ContentSmall>댓글 2 · 관심 1 · 조회 42</ContentSmall>
-  </BottomBorderViewCol>
-);
+const ItemContent = ({ data = {} }) => {
+  return (
+    <BottomBorderViewCol>
+      <ContentTitle>{data.title}</ContentTitle>
+      <ContentSmall>{data.category}</ContentSmall>
+      <Content>{data.description}</Content>
+      <ContentSmall>{`댓글 ${data.commentCount} · 관심 ${data.wishCount} · 조회 ${data.hits}`}</ContentSmall>
+    </BottomBorderViewCol>
+  );
+};
 
 export default ItemContent;
 

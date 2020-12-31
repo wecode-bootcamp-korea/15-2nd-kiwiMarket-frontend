@@ -3,16 +3,16 @@ import { Text, View, Image, Pressable } from "react-native";
 import styled from "styled-components/native";
 import { IMAGE_SIZE } from "../constants/Layout";
 
-const ShortItemCard = ({ goItemDetail, imgUrl }) => {
+const ShortItemCard = ({ goItemDetail, data }) => {
   return (
     <ShortCard onPress={goItemDetail}>
       <ShortCardImage
         source={{
-          uri: imgUrl,
+          uri: data.imgSrc,
         }}
       />
-      <Title>고오급 시계</Title>
-      <Price>70,000원</Price>
+      <Title numberOfLines={1}>{data.title}</Title>
+      <Price>{`${data.price && data.price.toLocaleString()}원`}</Price>
     </ShortCard>
   );
 };

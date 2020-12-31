@@ -50,11 +50,29 @@ export const ItemDetailHeader = ({ goBack, whiteHeader }) => {
   );
 };
 
+export const LoginHeader = ({ goBack }) => {
+  return (
+    <HeaderContainer>
+      <HeaderLeftButton style={styles.fixedWidth} onPress={goBack}>
+        <Ionicons name="arrow-back" size={22} onPress={goBack} />
+      </HeaderLeftButton>
+      <Text style={styles.headerText}>로그인/가입</Text>
+      <View style={styles.fixedWidth}></View>
+    </HeaderContainer>
+  );
+};
+
 const styles = StyleSheet.create({
   whiteHeader: {
     backgroundColor: "white",
     borderBottomColor: "#dadada",
     borderBottomWidth: 1,
+  },
+  fixedWidth: {
+    width: 50,
+  },
+  headerText: {
+    fontSize: 18,
   },
 });
 

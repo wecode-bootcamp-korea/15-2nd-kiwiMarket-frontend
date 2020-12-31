@@ -13,23 +13,26 @@ const MANNER_TEMP_MAP = [
   { color: "#FF9933", emoji: "smileo" },
 ];
 
-const SellerProfile = () => {
-  const [mannerTemp, setMannerTemp] = useState(10);
-  const [color, setColor] = useState("#A0C95E");
+const SellerProfile = ({ data = {} }) => {
+  const [color, setColor] = useState(MANNER_TEMP_MAP[0].color);
   const [progress, setProgress] = useState(0.5);
-  const [emoji, setEmoji] = useState("meh");
+  const [emoji, setEmoji] = useState(MANNER_TEMP_MAP[0].emoji);
 
   const setMannerState = (level) => {
     setColor(MANNER_TEMP_MAP[level].color);
-    setProgress(tempToProgress(mannerTemp));
+    setProgress(tempToProgress(data.mannerTemperature));
     setEmoji(MANNER_TEMP_MAP[level].emoji);
   };
 
-  useEffect(() => {
-    if (mannerTemp > 40) setMannerState(2);
-    else if (mannerTemp < 32) setMannerState(0);
+  const setManner = () => {
+    if (data.mannerTemperature > 40) setMannerState(2);
+    else if (data.mannerTemperature < 32) setMannerState(0);
     else setMannerState(1);
-  }, [mannerTemp]);
+  };
+
+  useEffect(() => {
+    data.mannerTemperature && setManner();
+  });
 
   return (
     <BottomBorderViewRow>
@@ -37,18 +40,22 @@ const SellerProfile = () => {
         <Profile
           source={{
             uri:
-              "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80",
+              data.seller_profilepic === "사진 데이터가 없음"
+                ? "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80"
+                : data.seller_profilepic,
           }}
         />
         <View style={styles.sellerInfo}>
-          <Text style={styles.sellerId}>하태하태</Text>
-          <Text style={styles.sellerTown}>대현동</Text>
+          <Text style={styles.sellerId}>{data.seller}</Text>
+          <Text style={styles.sellerTown}>{data.townName}</Text>
         </View>
       </View>
       <View style={styles.mannerBox}>
         <View style={styles.flexRow}>
           <View style={styles.flexEnd}>
-            <TempText color={color}>{`${mannerTemp} °C`}</TempText>
+            <TempText color={color}>{`${
+              data.mannerTemperature || 0
+            } °C`}</TempText>
             <ProgressBar
               color={color}
               progress={progress}
