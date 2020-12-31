@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import { FIXED_FOOTER_HEIGHT, FOOTER_BUTTON } from "../constants/Layout";
 import { Ionicons } from "react-native-vector-icons";
 
-export const ItemDetailFooter = ({ params }) => {
+export const ItemDetailFooter = ({ price }) => {
   const [wish, setWish] = React.useState(null);
 
   const pressWish = () => {
@@ -21,7 +21,9 @@ export const ItemDetailFooter = ({ params }) => {
           onPress={pressWish}
         />
         <View style={styles.priceView}>
-          <Text style={styles.price}>3,000원</Text>
+          <Text style={styles.price}>{`${
+            price && price.toLocaleString()
+          } 원`}</Text>
         </View>
       </View>
       <CommentButton>
