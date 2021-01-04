@@ -19,7 +19,7 @@ const LoadingKiwi = () => {
         useNativeDriver: true,
       })
     ).start();
-  });
+  }, []);
 
   return (
     <Animated.Image
