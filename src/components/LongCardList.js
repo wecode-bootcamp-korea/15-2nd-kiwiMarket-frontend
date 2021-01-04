@@ -11,7 +11,7 @@ const LongCardList = ({ goItemDetail }) => {
   }, []);
 
   const getData = () => {
-    fetch(`${POSTITEM_API}/product/1769`)
+    fetch(`${POSTITEM_API}/product/1817`)
       .then((response) => response.json())
       .then((result) => setData(result.productList));
   };

@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import React from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
-import { Ionicons, Fontisto } from "react-native-vector-icons";
+import { Text, View, StyleSheet, Button, Pressable } from "react-native";
+import { Ionicons, Fontisto, Feather } from "react-native-vector-icons";
 
 export const HomeHeader = ({ goScreen }) => {
   return (
@@ -62,6 +62,36 @@ export const LoginHeader = ({ goBack }) => {
   );
 };
 
+export const PostItemHeader = ({ type, goBack, handleUploadPhoto }) => {
+  return (
+    <PostItemHeaderContainer>
+      <Pressable onPress={goBack}>
+        <PostItemHeaderText>닫기</PostItemHeaderText>
+      </Pressable>
+      <PostItemHeaderTilte>{type} 글쓰기</PostItemHeaderTilte>
+      <Pressable onPress={handleUploadPhoto}>
+        <PostItemHeaderText>완료</PostItemHeaderText>
+      </Pressable>
+    </PostItemHeaderContainer>
+  );
+};
+
+export const CategorySelectHeader = ({ goBack }) => {
+  return (
+    <PostItemHeaderContainer>
+      <Pressable onPress={goBack}>
+        <PostItemHeaderText>
+          <Feather name="arrow-left" size={22} color="black" />
+        </PostItemHeaderText>
+      </Pressable>
+      <PostItemHeaderTilte>카테고리 선택</PostItemHeaderTilte>
+      <Pressable>
+        <CategorySelectHeaderText>완료</CategorySelectHeaderText>
+      </Pressable>
+    </PostItemHeaderContainer>
+  );
+};
+
 const styles = StyleSheet.create({
   whiteHeader: {
     backgroundColor: "white",
@@ -80,9 +110,9 @@ const HeaderContainer = styled.View`
   height: 88px;
   padding: ${({ theme: { paddings } }) =>
     `${paddings.headerTop} ${paddings.base} ${paddings.small}`};
-
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   background-color: #fff;
   border: 1px solid ${({ theme }) => theme.colors.gray};
   width: 100%;
@@ -116,4 +146,19 @@ const HeaderIcons = styled.View`
   width: 80px;
   flex-direction: row;
   justify-content: space-between;
+`;
+
+const PostItemHeaderContainer = styled(HeaderContainer)``;
+
+const PostItemHeaderText = styled.Text`
+  font-size: 16px;
+`;
+
+const PostItemHeaderTilte = styled(PostItemHeaderText)`
+  font-weight: 700;
+`;
+
+const CategorySelectHeaderText = styled.Text`
+  font-size: 16px;
+  color: white;
 `;

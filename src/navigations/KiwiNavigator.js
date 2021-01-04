@@ -9,6 +9,8 @@ import SetMyTown from "../screens/commons/setMyTown/SetMyTown";
 import SearchMyLocation from "../screens/commons/searchMyLocation/SearchMyLocation";
 import ItemList from "../screens/commons/itemList/ItemList";
 import PostItem from "../screens/commons/postItem/PostItem";
+import CategorySelectPage from "../screens/commons/postItem/categorySelectPage/CategorySelectPage";
+import { cardStyleInterpolator } from "./options/screenOptions";
 
 const Stack = createStackNavigator();
 
@@ -29,10 +31,16 @@ export default function KiwiNavigator() {
       <Stack.Screen name="ItemList" component={ItemList} />
       <Stack.Screen name="ItemDetail" component={ItemDetail} />
       <Stack.Screen name="SetMyTown" component={SetMyTown} />
-      <Stack.Screen name="PostItem" component={PostItem} />
+      <Stack.Screen
+        name="PostItem"
+        component={PostItem}
+        options={{
+          cardStyleInterpolator,
+          gestureEnabled: false,
+        }}
+      />
       <Stack.Screen name="SearchMyLocation" component={SearchMyLocation} />
+      <Stack.Screen name="CategorySelectPage" component={CategorySelectPage} />
     </Stack.Navigator>
   );
 }
-
-// Modal : options={{gestureEnabled: false}}

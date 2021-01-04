@@ -26,7 +26,7 @@ const BottomModalButton = ({ goPostItem }) => {
           <GoButton
             bottom={110}
             onPress={() => {
-              toggleAndGo("Nearby");
+              toggleAndGo("동네홍보");
             }}
           >
             <IconText>동네홍보</IconText>
@@ -37,7 +37,7 @@ const BottomModalButton = ({ goPostItem }) => {
           <GoButton
             bottom={60}
             onPress={() => {
-              toggleAndGo("UsedTrading");
+              toggleAndGo("중고거래");
             }}
           >
             <IconText>중고거래</IconText>
