@@ -2,15 +2,16 @@ import React from "react";
 import styled from "styled-components/native";
 import { windowWidth } from "../../../../constants/Layout";
 import { AntDesign } from "react-native-vector-icons";
+import { useSelector } from "react-redux";
 
 const inputWidth = windowWidth - 32;
 
-const CategorySelectButton = ({ goCategorySelectPage, selectedCategroy }) => {
+const CategorySelectButton = ({ goCategorySelectPage }) => {
+  const postCategory = useSelector((state) => state.postCategory).title;
+
   return (
     <CategoryPressable onPress={goCategorySelectPage}>
-      <CategoryText>
-        {selectedCategroy.length > 0 ? selectedCategroy : "카테고리 선택"}
-      </CategoryText>
+      <CategoryText>{postCategory}</CategoryText>
       <AntDesign name="right" size={12} color="black" />
     </CategoryPressable>
   );

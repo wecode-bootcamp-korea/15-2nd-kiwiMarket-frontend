@@ -45,8 +45,10 @@ const HomeSearch = ({ navigation }) => {
     third: Neighbor,
   });
 
-  const goItemDetail = () => {
-    navigation.push("ItemDetail");
+  const goItemDetail = (id) => {
+    navigation.push("ItemDetail", {
+      product_id: id,
+    });
   };
 
   const goBack = () => {

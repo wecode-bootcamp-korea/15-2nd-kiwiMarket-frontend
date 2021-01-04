@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Alert } from "react-native";
 import { PostItemHeader } from "../../../components/Headers";
 import AddImagesView from "../../../components/AddImagesView";
@@ -6,28 +6,24 @@ import TitleInput from "./components/TitleInput";
 import PriceInput from "./components/PriceInput";
 import CategorySelectButton from "./components/CategorySelectButton";
 import MainTextInput from "./components/MainTextInput";
-import { POSTITEM_API } from "../../../config";
-import axios from "axios";
+import { ITEM_LIST_API } from "../../../config";
+import { useSelector, useDispatch } from "react-redux";
+import { initCategory } from "../../../redux/actions";
 
 const PostItem = ({ navigation, route }) => {
-  const { type } = route.params;
+  const dispatch = useDispatch();
+  const { type, addressId } = route.params;
+  const postCategory = useSelector((state) => state.postCategory).id;
   const [image, setImage] = useState([]);
   const [body, setBody] = useState({
-    order_status: "판매중",
-    category: "",
-    title: "",
+    name: "",
     price: "",
     description: "",
     access_range: 1,
   });
 
-  useEffect(() => {
-    // 테스트용 추후 삭제
-    console.log(body);
-  }, [body]);
-
   const goCategorySelectPage = () => {
-    navigation.push("CategorySelectPage", { updateData });
+    navigation.push("CategorySelectPage");
   };
 
   const updateImage = (image) => {
@@ -35,47 +31,72 @@ const PostItem = ({ navigation, route }) => {
   };
 
   const updateData = (data) => {
-    setBody({ ...body, [data.type]: data.value });
+    setBody({
+      ...body,
+      [data.type]: data.value,
+    });
   };
 
-  const createFormData = (images, body) => {
+  const createFormData = (images, body, category) => {
     const data = new FormData();
 
     images.forEach((el) => {
-      data.append("product_image", {
+      data.append("image", {
+        type: `${el.type}/${el.uri.split(".").pop()}`,
+        name: el.uri.split("/").pop(),
         uri: el.uri.replace("file://", ""),
-        type: el.type,
       });
     });
-
     Object.keys(body).forEach((key) => data.append(key, body[key]));
-
-    console.log(data); // 벡엔드에서 데이터 잘 받는지 확인후 제거
+    data.append("product_category", category);
 
     return data;
   };
 
   const handleUploadPhoto = () => {
     const isCorrect =
-      body.title.length > 0 &&
+      body.name.length > 0 &&
       body.price.length > 0 &&
       body.description.length > 0 &&
-      image.length > 0;
+      image.length > 0 &&
+      postCategory > 0;
+
+    const isCorrectTrue = () => {
+      Alert.alert("알림", `${type}에 글을 쓰시겠습니까?`, [
+        { text: "확인", onPress: postFetch },
+      ]);
+    };
+
+    const postFetch = () => {
+      navigation.goBack();
+      Alert.alert("알림", "글쓰기 완료", [{ text: "닫기" }]);
+
+      fetch(`${ITEM_LIST_API}?address_id=${addressId}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data;",
+          Authorization:
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Mn0.6z94I8H6yIH0fUo4G1WRbQy1PnpNI-rjg0963jkVxDw",
+        },
+        body: createFormData(image, body, postCategory),
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result.message);
+          if (result.message === "SUCCESS") dispatch(initCategory());
+          else Alert.alert("알림", "글쓰기 실패", [{ text: "닫기" }]);
+        });
+    };
 
     isCorrect
-      ? axios
-          .post(
-            `${POSTITEM_API}/product/productupload/1769`,
-            createFormData(image, body)
-          )
-          .then((response) => response.json())
-          .then((result) => {
-            console.log(result);
-          })
-          .then(Alert.alert("알림", `${type}에 글쓰기 완료`), [
-            { text: "닫기" },
-          ])
-      : alert("nono");
+      ? isCorrectTrue()
+      : Alert.alert("알림", `모든 칸을 작성해주세요.`, [
+          {
+            text: "닫기",
+            style: "cancel",
+          },
+        ]);
   };
 
   return (
@@ -88,11 +109,7 @@ const PostItem = ({ navigation, route }) => {
       <View style={styles.container}>
         <AddImagesView updateImage={updateImage} />
         <TitleInput updateData={updateData} />
-        <CategorySelectButton
-          selectedCategroy={body.category}
-          updateData={updateData}
-          goCategorySelectPage={goCategorySelectPage}
-        />
+        <CategorySelectButton goCategorySelectPage={goCategorySelectPage} />
         <PriceInput updateData={updateData} />
         <MainTextInput updateData={updateData} />
       </View>

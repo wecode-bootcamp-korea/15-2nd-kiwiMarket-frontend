@@ -44,7 +44,8 @@ const SectionHeader = ({ section: { title } }) => (
   <ListHeader content={{ left: title[0], right: title[1] }} noBorder={true} />
 );
 
-const ItemDetail = ({ navigation }) => {
+const ItemDetail = ({ navigation, route }) => {
+  const { product_id } = route.params;
   const [isReady, setIsReady] = useState(false);
   const [isSellerItemsReady, setIsSellerItemsReady] = useState(false);
   const [isRecommendItemsReady, setIsRecommendItemsReady] = useState(false);
