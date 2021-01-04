@@ -92,6 +92,18 @@ export const CategorySelectHeader = ({ goBack }) => {
   );
 };
 
+export const InterestedCategoryHeader = ({ goBack }) => {
+  return (
+    <HeaderContainer>
+      <HeaderLeftButton style={styles.fixedWidth} onPress={goBack}>
+        <Ionicons name="arrow-back" size={22} onPress={goBack} />
+      </HeaderLeftButton>
+      <Text style={styles.headerText}>관심 카테고리 설정</Text>
+      <View style={styles.fixedWidth}></View>
+    </HeaderContainer>
+  );
+};
+
 const styles = StyleSheet.create({
   whiteHeader: {
     backgroundColor: "white",
