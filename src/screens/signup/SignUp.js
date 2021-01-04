@@ -29,14 +29,14 @@ const SignUp = ({ navigation, route }) => {
   const [focusNickname, setFocusNickname] = useState(false);
   const [checkNickname, setCheckNickname] = useState(false);
   const [isValidNickname, setIsValidNickname] = useState(false);
-  const [myTown, setMyTown] = useState("동내를 인증해주세요!");
+  const [myTown, setMyTown] = useState("동네를 인증해주세요!");
   const [townCode, setTownCode] = useState("");
   const [coordinate, setCoordinate] = useState();
 
   const goBack = () => navigation.pop();
 
   const getCurrentLocation = async () => {
-    setMyTown("동내 인증중...");
+    setMyTown("동네 인증중...");
     const { status } = await Location.requestPermissionsAsync();
     if (status !== "granted") {
       Alert("현재 위치에 대한 정보를 받아 오고싶키위🥝");
