@@ -1,9 +1,8 @@
 // APIs
 
 const HOST = "http://192.168.0.3:8000/";
-const HOST2 = "http://192.168.0.81:8000/";
+export const HOST2 = "http://192.168.0.81:8000/";
 
-export const POSTITEM_API = "http://192.168.0.3:8000";
 export const ITEM_LIST_API = `${HOST}product`;
 export const ITEM_DETAIL_API = `${HOST}product/detail`;
 export const PHONE_AUTH_API = `${HOST2}user/smscheck`;

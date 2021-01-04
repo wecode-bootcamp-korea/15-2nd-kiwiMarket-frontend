@@ -17,7 +17,7 @@ const AddImagesView = ({ updateImage }) => {
   };
 
   useEffect(() => {
-    (async () => {
+    async () => {
       if (Platform.OS !== "web") {
         const {
           status,
@@ -26,7 +26,7 @@ const AddImagesView = ({ updateImage }) => {
           alert("Sorry, we need camera roll permissions to make this work!");
         }
       }
-    })();
+    };
   }, []);
 
   const pickImage = async () => {
@@ -42,7 +42,7 @@ const AddImagesView = ({ updateImage }) => {
         setImage(
           image.concat({
             uri: result.uri,
-            type: `${result.type}/${result.uri.split(".").pop()}`,
+            type: result.type,
           })
         );
       }

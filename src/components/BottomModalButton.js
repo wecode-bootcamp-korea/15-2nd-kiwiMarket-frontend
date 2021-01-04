@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Pressable } from "react-native";
 import Modal from "react-native-modal";
 import styled from "styled-components/native";
 import { Octicons, FontAwesome } from "react-native-vector-icons";
 
-const BottomModalButton = ({ goPostItem }) => {
+const BottomModalButton = ({ goPostItem, addressId }) => {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
@@ -13,7 +12,7 @@ const BottomModalButton = ({ goPostItem }) => {
 
   const toggleAndGo = (type) => {
     toggleModal();
-    goPostItem(type);
+    goPostItem(type, addressId);
   };
 
   return (

@@ -1,10 +1,17 @@
 import styled from "styled-components/native";
 import React from "react";
-import { Text, View, StyleSheet, TextInput, Pressable } from "react-native";
-import { Ionicons, Fontisto, Feather } from "react-native-vector-icons";
+import { Text, View, StyleSheet, Pressable } from "react-native";
+import {
+  Ionicons,
+  Fontisto,
+  Feather,
+  AntDesign,
+} from "react-native-vector-icons";
+import { useDispatch } from "react-redux";
+import { initCategory } from "../redux/actions";
 import { windowWidth } from "../constants/Layout";
 
-export const HomeHeader = ({ goScreen }) => {
+export const HomeHeader = ({ goScreen, addressName }) => {
   return (
     <HomeHeaderContainer>
       <HeaderLeftButton
@@ -12,7 +19,7 @@ export const HomeHeader = ({ goScreen }) => {
           goScreen("SetMyTown");
         }}
       >
-        홈 헤더
+        {addressName ? addressName : null}
       </HeaderLeftButton>
       <HeaderIcons>
         <Fontisto
@@ -64,9 +71,15 @@ export const LoginHeader = ({ goBack }) => {
 };
 
 export const PostItemHeader = ({ type, goBack, handleUploadPhoto }) => {
+  const dispatch = useDispatch();
   return (
     <PostItemHeaderContainer>
-      <Pressable onPress={goBack}>
+      <Pressable
+        onPress={() => {
+          goBack();
+          dispatch(initCategory());
+        }}
+      >
         <PostItemHeaderText>닫기</PostItemHeaderText>
       </Pressable>
       <PostItemHeaderTilte>{type} 글쓰기</PostItemHeaderTilte>
@@ -118,6 +131,22 @@ export const HomeSearchHeader = ({ goBack, setFocusInput }) => {
         onBlur={() => setFocusInput(false)}
       />
     </HeaderContainer>
+  );
+};
+
+export const SetMyTownHeader = ({ goBack }) => {
+  return (
+    <PostItemHeaderContainer>
+      <Pressable onPress={goBack}>
+        <PostItemHeaderText>
+          <AntDesign name="close" size={22} color="black" />
+        </PostItemHeaderText>
+      </Pressable>
+      <PostItemHeaderTilte>내 동네 설정하기</PostItemHeaderTilte>
+      <Pressable>
+        <CategorySelectHeaderText>완료</CategorySelectHeaderText>
+      </Pressable>
+    </PostItemHeaderContainer>
   );
 };
 

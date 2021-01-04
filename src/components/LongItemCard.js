@@ -2,12 +2,13 @@ import React from "react";
 import styled from "styled-components/native";
 import { Dimensions } from "react-native";
 import { EvilIcons } from "react-native-vector-icons";
+import { postTimeGenerator } from "../utils";
 
 const windowHeight = Dimensions.get("window").height;
 
 const LongItemCard = ({ item, goItemDetail }) => {
   return (
-    <ItemCardWrap onPress={goItemDetail}>
+    <ItemCardWrap onPress={() => goItemDetail(item.itemId, item.seller_id)}>
       <ImageWrap
         source={{
           uri: item.imgSrc,
@@ -15,9 +16,9 @@ const LongItemCard = ({ item, goItemDetail }) => {
       />
       <CardTextView>
         <ProductText fontSize={16}>{item.title}</ProductText>
-        <ProductText
-          color={({ theme }) => theme.colors.smallTextGray}
-        >{`${item.townName} · ${item.postedTime}`}</ProductText>
+        <ProductText color={({ theme }) => theme.colors.smallTextGray}>{`${
+          item.townName
+        } · ${postTimeGenerator(item.postedTime)}`}</ProductText>
         <ProductText fontSize={14} fontWeight={600}>
           {item.price.toLocaleString()}원
         </ProductText>

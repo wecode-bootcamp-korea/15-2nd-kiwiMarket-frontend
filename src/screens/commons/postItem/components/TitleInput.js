@@ -8,7 +8,7 @@ const TitleInput = ({ updateData }) => {
   const [title, setTitle] = useState("");
 
   useEffect(() => {
-    updateData({ type: "title", value: title });
+    updateData({ type: "name", value: title });
   }, [title]);
 
   return (
