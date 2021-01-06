@@ -1,54 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, SectionList, Text } from "react-native";
+import { StyleSheet, View, SectionList, Text, Alert } from "react-native";
 import { ItemDetailHeader } from "../../../components/Headers";
 import { ItemDetailFooter } from "../../../components/Footers";
 import ItemImageSwiper from "./components/ItemImageSwiper";
-import UserProfile from "./components/SellerProfile";
+import SellerProfile from "./components/SellerProfile";
 import ItemContent from "./components/ItemContent";
 import ListHeader from "./components/ListHeader";
 import ShortItemCard from "../../../components/ShortItemCard";
 import styled from "styled-components/native";
 import { IMAGE_SIZE, FIXED_FOOTER_HEIGHT } from "../../../constants/Layout";
-import { mockData1, mockData2 } from "../../../data/ItemDetailMock";
-import { data } from "../../../data/ItemDetailRealMock";
 import {
   ITEM_DETAIL_API,
   SELLER_ITEMS_API,
   ITEM_LIST_API,
 } from "../../../config";
-import { flexCenter, LoadingContainer } from "../../../styles/mixin";
+import { LoadingContainer } from "../../../styles/mixin";
 import LoadingKiwi from "../../../components/LoadingKiwi";
 import { smallCardViewArrayGenerator } from "../../../utils";
+import { useSelector } from "react-redux";
 
-const HeaderComponent = (data = null) => {
-  return (
-    <>
-      <ItemImageSwiper
-        data={data.productdetail && data.productdetail[0].imgSrcList}
-      />
-      <UserProfile data={data.sellerdata && data.sellerdata[0]} />
-      <ItemContent data={data.productdetail && data.productdetail[0]} />
-      <ListHeader
-        content={{
-          left: `댓글 ${
-            data.productdetail && data.productdetail[0].commentCount
-          }`,
-          right: "모든 댓글 보기",
-        }}
-      />
-    </>
-  );
-};
-
-const SectionHeader = ({ section: { title } }) => (
-  <ListHeader content={{ left: title[0], right: title[1] }} noBorder={true} />
-);
-
-const ItemDetail = ({ navigation, route }) => {
-  const { product_id } = route.params;
+const ItemDetail = ({ navigation, route: { params } }) => {
   const [isReady, setIsReady] = useState(false);
-  const [isSellerItemsReady, setIsSellerItemsReady] = useState(false);
-  const [isRecommendItemsReady, setIsRecommendItemsReady] = useState(false);
   const [whiteHeader, setWhiteHeader] = useState(false);
   const [section, setSection] = useState([
     {
@@ -61,53 +33,108 @@ const ItemDetail = ({ navigation, route }) => {
     },
   ]);
   const [productDetail, setProductDetail] = useState([]);
+  const myCategory = useSelector((state) => state.category);
 
   useEffect(() => {
-    isReady ? !isSellerItemsReady && getSellerData() : getData();
-    isSellerItemsReady && getRecommendItems();
-    // 아래는 목데이터 사용
-    //setProductDetail(data.itemDetailData);
-  }, [isReady, isSellerItemsReady]);
+    //아래와 같이 비동기를 순차적으로 부르지 말고
+    // isReady ? !isSellerItemsReady && getSellerData() : getItemDetailData();
+    // isSellerItemsReady && getRecommendItems();
+    //Promise.all을 사용하자. 로딩속도 단축뿐만 아니라 불필요한 state의 사용도 줄일 수 있다.
 
-  const getData = async () => {
-    const response = await fetch(`${ITEM_DETAIL_API}/25`);
-    const result = await response.json();
-    const productDetail = await result.itemDetailData;
-    setIsReady(true);
-    setProductDetail(productDetail);
+    const itemDetailData = getItemDetailData();
+    const sellerData = getSellerData();
+    const recommendData = getRecommendItems();
+
+    Promise.all([itemDetailData, sellerData, recommendData]);
+  }, []);
+
+  const getItemDetailData = async () => {
+    try {
+      const response = await fetch(
+        `${ITEM_DETAIL_API}${params ? params.product_id : 153}`
+      );
+      const result = await response.json();
+      if (result.message === "NO_PRODUCT") {
+        navigation.goBack();
+        Alert.alert("상품이 존재하지 않아요", null, [
+          {
+            text: "알겠어요",
+            style: "cancel",
+          },
+        ]);
+        return;
+      }
+      const productDetail = await result.itemDetailData;
+      setIsReady(true);
+      setProductDetail(productDetail);
+    } catch {
+      Alert.alert("통신에 실패했어요", null, [
+        {
+          text: "알겠어요",
+          style: "cancel",
+        },
+      ]);
+      navigation.goBack();
+    }
   };
 
   const getSellerData = async () => {
-    const response = await fetch(`${SELLER_ITEMS_API}/4`);
-    const result = await response.json();
-
-    setSection([
-      {
-        ...section[0],
-        data: smallCardViewArrayGenerator(result.sellerItemsData),
-      },
-      {
-        title: [`이건 어때요?`, ""],
-        data: ["loading"],
-      },
-    ]);
-    setIsSellerItemsReady(true);
+    try {
+      const response = await fetch(
+        `${SELLER_ITEMS_API}${params ? params.seller_id : 2}`
+      );
+      const result = await response.json();
+      setSection((prevSection) => [
+        {
+          ...prevSection[0],
+          data: smallCardViewArrayGenerator(result.sellerItemsData),
+        },
+        prevSection[1],
+      ]);
+    } catch {
+      Alert.alert("판매자님의 다른 판매상품을 받아오는데 실패했어요", null, [
+        {
+          text: "알겠어요",
+          style: "cancel",
+        },
+      ]);
+    }
   };
 
   const getRecommendItems = async () => {
-    const response = await fetch(`${ITEM_LIST_API}/1817`);
-    const result = await response.json();
-    setSection([
-      section[0],
-      {
-        title: [`이건 어때요?`, ""],
-        data: smallCardViewArrayGenerator(result.productList),
-      },
-    ]);
-    setIsRecommendItemsReady(true);
+    try {
+      const response = await fetch(`${ITEM_LIST_API}?address_id=1644`, {
+        headers: {
+          Authorization:
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Mn0.6z94I8H6yIH0fUo4G1WRbQy1PnpNI-rjg0963jkVxDw",
+        },
+      });
+      const result = await response.json();
+      setSection((prevSection) => [
+        prevSection[0],
+        {
+          ...prevSection[1],
+          data: smallCardViewArrayGenerator(result.productList),
+        },
+      ]);
+    } catch {
+      Alert.alert("관련 상품을 받아오는데 실패했어요", null, [
+        {
+          text: "알겠어요",
+          style: "cancel",
+        },
+      ]);
+    }
   };
 
-  const goItemDetail = () => navigation.push("ItemDetail", { id: 1 });
+  const goItemDetail = (
+    product_id = 153,
+    seller_id = productDetail[0].sellerdata.seller_id
+  ) =>
+    navigation.push("ItemDetail", {
+      product_id: product_id,
+      seller_id: seller_id,
+    });
   const goBack = () => navigation.goBack();
 
   const handleScroll = (e) => {
@@ -147,14 +174,30 @@ const ItemDetail = ({ navigation, route }) => {
         ListHeaderComponent={HeaderComponent(productDetail)}
         ListFooterComponent={<EmptyFooterMargin />}
       />
-      <ItemDetailFooter
-        price={
-          productDetail.productdetail && productDetail.productdetail[0].price
-        }
-      />
+      <ItemDetailFooter price={productDetail[0]?.productdetail.price} />
     </ItemDetailContainer>
   );
 };
+
+const HeaderComponent = (data = null) => {
+  return (
+    <>
+      <ItemImageSwiper data={data[0]?.productdetail.imgSrcList} />
+      <SellerProfile data={data[0]?.sellerdata} />
+      <ItemContent data={data[0]?.productdetail} />
+      <ListHeader
+        content={{
+          left: `댓글 ${data[0]?.productdetail.commentCount}`,
+          right: "모든 댓글 보기",
+        }}
+      />
+    </>
+  );
+};
+
+const SectionHeader = ({ section: { title } }) => (
+  <ListHeader content={{ left: title[0], right: title[1] }} noBorder={true} />
+);
 
 export default ItemDetail;
 

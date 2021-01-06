@@ -28,10 +28,17 @@ const BottomTabNavigator = () => (
           <>
             <Ionicons
               name={focused ? iconName : iconName + "-outline"}
-              color={focused ? "black" : "black"}
+              color={focused ? "#A0C95E" : "black"}
               size={22}
             />
-            <Text style={styles.tabName}>{tabName}</Text>
+            <Text
+              style={{
+                ...styles.tabName,
+                color: focused ? "#A0C95E" : "black",
+              }}
+            >
+              {tabName}
+            </Text>
           </>
         );
       },

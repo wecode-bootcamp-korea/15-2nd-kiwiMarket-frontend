@@ -4,19 +4,20 @@ import LongItemCard from "./LongItemCard";
 import { ITEM_LIST_API } from "../config";
 import LoadingKiwi from "../components/LoadingKiwi";
 import { windowHeight } from "../constants/Layout";
+import { AsyncStorage } from "react-native";
 
 const LongCardList = ({ goItemDetail, addressId }) => {
   const [data, setData] = useState([]);
-
   useEffect(() => {
     getData();
   }, []);
 
-  const getData = () => {
-    fetch(`${ITEM_LIST_API}?address_id=${addressId}`, {
+  const getData = async () => {
+    const myToken = await AsyncStorage.getItem("token");
+
+    await fetch(`${ITEM_LIST_API}?address_id=${addressId}`, {
       headers: {
         Authorization:
-          // AsyncStorage.getItem("token")
           "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Mn0.6z94I8H6yIH0fUo4G1WRbQy1PnpNI-rjg0963jkVxDw",
       },
     })

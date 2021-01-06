@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert, AsyncStorage } from "react-native";
 import { PostItemHeader } from "../../../components/Headers";
 import AddImagesView from "../../../components/AddImagesView";
 import TitleInput from "./components/TitleInput";
@@ -67,17 +67,18 @@ const PostItem = ({ navigation, route }) => {
       ]);
     };
 
-    const postFetch = () => {
+    const postFetch = async () => {
       navigation.goBack();
       Alert.alert("알림", "글쓰기 완료", [{ text: "닫기" }]);
+      const myToken = await AsyncStorage.getItem("token");
 
-      fetch(`${ITEM_LIST_API}?address_id=${addressId}`, {
+      await fetch(`${ITEM_LIST_API}?address_id=${addressId}`, {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "multipart/form-data;",
-          Authorization:
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Mn0.6z94I8H6yIH0fUo4G1WRbQy1PnpNI-rjg0963jkVxDw",
+          Authorization: myToken,
+          //"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Mn0.6z94I8H6yIH0fUo4G1WRbQy1PnpNI-rjg0963jkVxDw",
         },
         body: createFormData(image, body, postCategory),
       })

@@ -12,7 +12,6 @@ const CategoryPicker = ({ categoryName, categoryId }) => {
 
   const toggleInterestedCategory = () => {
     dispatch(toggleCategory(categoryId));
-    console.log("toggler!");
   };
 
   return (

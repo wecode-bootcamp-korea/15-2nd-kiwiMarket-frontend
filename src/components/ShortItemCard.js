@@ -5,7 +5,9 @@ import { IMAGE_SIZE } from "../constants/Layout";
 
 const ShortItemCard = ({ goItemDetail, data }) => {
   return (
-    <ShortCard onPress={goItemDetail}>
+    <ShortCard
+      onPress={() => goItemDetail(data.itemId ? data.itemId : data.id)}
+    >
       <ShortCardImage
         source={{
           uri: data.imgSrc,

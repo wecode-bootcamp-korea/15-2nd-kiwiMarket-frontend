@@ -35,7 +35,7 @@ const category = (state = initialState, action) => {
           : category
       );
     case "SET_INTERESTED_CATEGORY":
-      return state;
+      return action.interested_category;
     default:
       return state;
   }
