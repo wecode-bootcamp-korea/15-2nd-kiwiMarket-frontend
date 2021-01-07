@@ -1,7 +1,8 @@
 import styled from "styled-components/native";
 import React from "react";
-import { Text, View, StyleSheet, Button, Pressable } from "react-native";
+import { Text, View, StyleSheet, TextInput, Pressable } from "react-native";
 import { Ionicons, Fontisto, Feather } from "react-native-vector-icons";
+import { windowWidth } from "../constants/Layout";
 
 export const HomeHeader = ({ goScreen }) => {
   return (
@@ -104,6 +105,22 @@ export const InterestedCategoryHeader = ({ goBack }) => {
   );
 };
 
+export const HomeSearchHeader = ({ goBack, setFocusInput }) => {
+  return (
+    <HeaderContainer>
+      <HeaderLeftButton style={styles.goBack} onPress={goBack}>
+        <Ionicons name="arrow-back" size={22} onPress={goBack} />
+      </HeaderLeftButton>
+      <HomeSearchInput
+        placeholder="검색어를 입력해주세요"
+        style={styles.search}
+        onFocus={() => setFocusInput(true)}
+        onBlur={() => setFocusInput(false)}
+      />
+    </HeaderContainer>
+  );
+};
+
 const styles = StyleSheet.create({
   whiteHeader: {
     backgroundColor: "white",
@@ -112,6 +129,9 @@ const styles = StyleSheet.create({
   },
   fixedWidth: {
     width: 50,
+  },
+  goBack: {
+    width: 32,
   },
   headerText: {
     fontSize: 18,
@@ -173,4 +193,13 @@ const PostItemHeaderTilte = styled(PostItemHeaderText)`
 const CategorySelectHeaderText = styled.Text`
   font-size: 16px;
   color: white;
+`;
+
+const HomeSearchInput = styled.TextInput`
+  width: ${windowWidth * 0.8}px;
+  height: 32px;
+  padding: 0 8px;
+  background-color: ${({ theme }) => theme.colors.gray};
+  border-radius: 4px;
+  font-size: 16px;
 `;

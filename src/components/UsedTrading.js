@@ -1,15 +1,27 @@
 import React from "react";
 import { Text, View, Button } from "react-native";
+import styled from "styled-components/native";
+import { flexRowMarginXView } from "../styles/mixin";
 
 const UsedTrading = ({ route }) => {
   return (
-    <View style={{ backgroundColor: "#A0C95E", flex: 1 }}>
-      {/* Layout 작업 전 */}
-      <Text>Used Trading</Text>
-      <Button title="go to ItemList" onPress={route.goItemList} />
-      <Button title="go to ItemDetail" onPress={route.goItemDetail} />
-    </View>
+    <Container>
+      <InnerContainer>
+        <Text>Used Trading</Text>
+      </InnerContainer>
+    </Container>
   );
 };
 
 export default UsedTrading;
+
+const Container = styled.View`
+  flex: 1;
+  background-color: white;
+`;
+
+const InnerContainer = styled.View`
+  ${flexRowMarginXView}
+  background-color: white;
+  border-bottom-color: white;
+`;
