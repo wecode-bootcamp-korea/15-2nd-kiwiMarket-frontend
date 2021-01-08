@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, AsyncStorage } from "react-native";
 import LongCardList from "../../../components/LongCardList";
 import { HomeHeader } from "../../../components/Headers";
 import BottomModalButton from "../../../components/BottomModalButton";
@@ -26,18 +26,22 @@ const Home = ({ navigation }) => {
     });
   };
 
-  useEffect(() => {
-    fetch(`${HOST2}user/myaddress`, {
+  const getUserInfo = async () => {
+    const myToken = await AsyncStorage.getItem("token");
+    await fetch(`${HOST2}user/myaddress`, {
       headers: {
-        Authorization:
-          // AsyncStorage.getItem("token")
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Mn0.6z94I8H6yIH0fUo4G1WRbQy1PnpNI-rjg0963jkVxDw",
+        Authorization: myToken,
+        //"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Mn0.6z94I8H6yIH0fUo4G1WRbQy1PnpNI-rjg0963jkVxDw",
       },
     })
       .then((response) => response.json())
       .then((result) => {
         setTownData(result.address_list[0]);
       });
+  };
+
+  useEffect(() => {
+    getUserInfo();
   }, []);
 
   return townData.address_name ? (

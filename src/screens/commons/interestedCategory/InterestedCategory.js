@@ -1,14 +1,20 @@
-import React from "react";
-import { View, FlatList, StyleSheet } from "react-native";
+import React, { useEffect } from "react";
+import { View, FlatList, StyleSheet, AsyncStorage } from "react-native";
 import { InterestedCategoryHeader } from "../../../components/Headers";
 import styled from "styled-components/native";
 import CategoryPicker from "../../../components/CategoryPicker";
 import { flexRowMarginXView } from "../../../styles/mixin";
 import { useSelector } from "react-redux";
+import { UPDATE_INTERESTED_CATEGORY_API } from "../../../config";
 
 const InterestedCategory = ({ navigation }) => {
   const goBack = () => navigation.goBack();
   const categories = useSelector((state) => state.category);
+
+  // useEffect를 활용해서 업데이트된 리덕스 category 상태를 백엔드에 주어야 한다.
+  // useEffect(() => {
+  //   return updateInterestedCategory;
+  // }, [categories]);
 
   return (
     <View style={styles.container}>

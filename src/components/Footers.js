@@ -1,13 +1,25 @@
 import React from "react";
-import { Text, View, Pressable, StyleSheet } from "react-native";
+import { Text, View, Pressable, StyleSheet, AsyncStorage } from "react-native";
 import styled from "styled-components/native";
 import { FIXED_FOOTER_HEIGHT, FOOTER_BUTTON } from "../constants/Layout";
 import { Ionicons } from "react-native-vector-icons";
+import { WISH_TOGGLE_API } from "../config";
 
-export const ItemDetailFooter = ({ price }) => {
-  const [wish, setWish] = React.useState(null);
+export const ItemDetailFooter = ({
+  price,
+  wished = false,
+  product_id = 153,
+}) => {
+  const [wish, setWish] = React.useState(wished);
 
-  const pressWish = () => {
+  const pressWish = async () => {
+    // const response = await fetch(`${WISH_TOGGLE_API}${product_id}`, {
+    //   method: "POST",
+    //   headers: {
+    //     Authorization: AsyncStorage.getItem("token"),
+    //   },
+    // });
+    // const result = await response.json();
     setWish(!wish);
   };
 

@@ -10,6 +10,8 @@ import {
 import { useDispatch } from "react-redux";
 import { initCategory } from "../redux/actions";
 import { windowWidth } from "../constants/Layout";
+import { useSelector } from "react-redux";
+import { UPDATE_INTERESTED_CATEGORY_API } from "../config";
 
 export const HomeHeader = ({ goScreen, addressName }) => {
   return (
@@ -107,10 +109,35 @@ export const CategorySelectHeader = ({ goBack }) => {
 };
 
 export const InterestedCategoryHeader = ({ goBack }) => {
+  const categories = useSelector((state) => state.category);
+
+  const updateInterestedCategory = async () => {
+    const response = await fetch(`${UPDATE_INTERESTED_CATEGORY_API}`, {
+      method: "POST",
+      headers: {
+        Authorization:
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6Mn0.6z94I8H6yIH0fUo4G1WRbQy1PnpNI-rjg0963jkVxDw",
+      },
+      body: JSON.stringify({
+        category: categories
+          .filter((category) => category.checked)
+          .map((category) => category.id),
+      }),
+    });
+    const result = await response.json();
+  };
+
   return (
     <HeaderContainer>
-      <HeaderLeftButton style={styles.fixedWidth} onPress={goBack}>
-        <Ionicons name="arrow-back" size={22} onPress={goBack} />
+      <HeaderLeftButton style={styles.fixedWidth}>
+        <Ionicons
+          name="arrow-back"
+          size={22}
+          onPress={() => {
+            updateInterestedCategory();
+            goBack();
+          }}
+        />
       </HeaderLeftButton>
       <Text style={styles.headerText}>관심 카테고리 설정</Text>
       <View style={styles.fixedWidth}></View>

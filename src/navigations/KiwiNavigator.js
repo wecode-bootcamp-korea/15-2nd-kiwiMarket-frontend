@@ -24,7 +24,7 @@ export default function KiwiNavigator() {
       {/* 로딩, 회원가입 스크린 */}
       {/* ex) 내동네 설정 스크린 거의 무한스크롤 지역 선택 스크린: 로그인 할 때 +  */}
 
-      {/* <Stack.Screen name="LoginNavigator" component={LoginNavigator} /> */}
+      <Stack.Screen name="LoginNavigator" component={LoginNavigator} />
       <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
       <Stack.Screen name="InterestedCategory" component={InterestedCategory} />
       <Stack.Screen name="HomeSearch" component={HomeSearch} />

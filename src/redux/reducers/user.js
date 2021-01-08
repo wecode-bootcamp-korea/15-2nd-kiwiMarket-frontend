@@ -1,4 +1,8 @@
-const initialState = null;
+const initialState = {
+  phoneNumber: "",
+  myTown: [],
+  nickname: "",
+};
 
 const user = (state = null, action) => {
   switch (action.type) {

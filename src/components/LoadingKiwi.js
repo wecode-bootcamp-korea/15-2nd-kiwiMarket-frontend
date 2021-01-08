@@ -33,8 +33,8 @@ export default LoadingKiwi;
 
 const styles = StyleSheet.create({
   loadingImage: {
-    width: 80,
-    height: 80,
+    width: 40,
+    height: 40,
     resizeMode: "contain",
   },
 });
